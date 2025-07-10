@@ -1,0 +1,80 @@
+<div class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-4xl font-bold mb-6 text-center text-gray-800 tracking-tight">
+        Nos Produits
+    </h2>
+
+    <!-- Filtres -->
+    <form [formGroup]="filterForm" class="w-full max-w-3xl mx-auto grid grid-cols-1 gap-4 mb-10">
+        <!-- Ligne avec les 2 champs côte à côte -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" formControlName="search" placeholder="🔍 Rechercher par titre" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+            <input type="number" formControlName="maxPrice" placeholder="💰 Prix maximum" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Case à cocher en dessous -->
+        <label class="flex items-center justify-center space-x-2 text-sm text-gray-700">
+            <input type="checkbox" formControlName="promoOnly"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+            <span>Afficher uniquement les promotions</span>
+        </label>
+    </form>
+
+
+
+    <!-- Total -->
+    <p class="text-center text-gray-600 mb-8 text-sm italic">
+        Total : <span class="font-semibold">{{ filteredProducts.length }}</span> produits trouvés
+    </p>
+
+    <!-- Produits -->
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        @for (product of filteredProducts; track product.id) {
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden relative border-2 border-gray-200 hover:shadow-2xl transition-all duration-300" [class.!border-green-500]="product.discountPercent > 0">
+            <div class="h-64 w-full overflow-hidden">
+                <img [src]="product.image" [alt]="product.title" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+            </div>
+
+            <div class="p-5">
+                <h3 class="text-xl font-bold mb-1 text-gray-900 truncate">
+                    {{ product.title }}
+                </h3>
+                <p class="text-sm text-gray-600 mb-4 h-12 overflow-hidden">
+                    {{ product.description }}
+                </p>
+
+                <div class="mb-4">
+                    @if (product.discountPercent > 0) {
+                    <p class="text-red-600 font-bold text-lg">
+                        {{ getDiscountedPrice(product.fullPrice, product.discountPercent) }} €
+                        <span class="text-sm line-through ml-2 text-gray-500">
+                            {{ product.fullPrice }} €
+                        </span>
+                    </p>
+                    } @else {
+                    <p class="text-gray-900 font-bold text-lg">
+                        {{ product.fullPrice }} €
+                    </p>
+                    }
+                </div>
+
+                <ul class="space-y-1">
+                    @for (f of product.features; track f.title) {
+                    <li class="flex items-center gap-2 text-sm text-gray-700">
+                        <i class="material-icons">{{ f.icon }}</i>
+                        <span>
+                            <strong>{{ f.title }}:</strong> {{ f.description }}
+                        </span>
+                    </li>
+                    }
+                </ul>
+            </div>
+
+            @if (product.discountPercent > 0) {
+            <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-md">
+                Promo -{{ product.discountPercent * 100 }}%
+            </span> }
+        </div>
+        }
+    </div>
+</div>

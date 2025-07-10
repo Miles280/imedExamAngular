@@ -1,27 +1,10 @@
-# ImedExamAngular
+J’ai affiché tous les produits avec le design demandé, j’ai bien différencié ceux en promo avec une bordure verte et un badge en haut à droite.
+J’utilise un formulaire réactif avec les 3 filtres obligatoires (titre, prix max, promo only), et le filtrage se fait en temps réel.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+J’ai aussi mis le total des produits affichés, et j’ai une fonction qui calcule le prix avec remise arrondi à 2 chiffres.
+J’ai eu un petit bug avec formGroup non reconnu mais j’ai réglé ça en important ReactiveFormsModule.
 
-## Development server
+J'ai appris un peu sur le tas les formulaires à la maison et les filtres j'ai vu ça aujourd'hui pour la première fois. Je pense avoir compris et avoir utiliser les pratiques les plus intéressantes pour la version 18 mais voilà je suis pas sûr.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+J'ai d'ailleurs un bug : Je trie en fonction du prix de base et non pas du prix après réduction, je n'ai pas le temps de rectifié.
+Pour changer ça je devrais faire en sorte de dire "Si l'article à une remise, met l'article dans la liste si son prix après remise est inférieur au prix max, sinon met l'article dans la liste si son prix de base est inférieur au prix max".
