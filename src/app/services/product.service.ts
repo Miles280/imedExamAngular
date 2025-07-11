@@ -7,7 +7,7 @@ import { Product } from '../models/product.interface';
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly apiUrl = 'http://http://34.76.154.203/api/ventilo.php';
+  private readonly apiUrl = 'http://34.76.154.203/api/ventilo.php';
 
   constructor(private http: HttpClient) {} 
 
